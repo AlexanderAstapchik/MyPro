@@ -1,8 +1,6 @@
 package com.company;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
@@ -72,21 +70,39 @@ public class HomeDirectory {
             filesToProcess = files.length;
         else filesToProcess = num;
         System.out.println("number of files = " + filesToProcess);
-        Pattern patPhoneNum=Pattern.compile("^(\\+\\(\\d{2}\\)\\d{7})$");
-        Matcher matcher=patPhoneNum.matcher(file1.toString());
+        Pattern patPhoneNum = Pattern.compile("\\+\\(\\d{2}\\)\\d{7}");
+        try {
+            FileReader fileReader = new FileReader("C:\\Users\\User\\IdeaProjects\\MyPro\\src\\homeRegex2\\Text.txt");
+            Scanner sc = new Scanner(fileReader);
+            int i = 1;
+            while (sc.hasNextLine()) {
+                Matcher matcher = patPhoneNum.matcher(sc.nextLine());
+                while (matcher.find()) {
+                    System.out.println(matcher.group());
+                }
+                i++;
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+
+        //  Matcher matcher=patPhoneNum.matcher()
 
 
 //        Pattern patMail=Pattern.compile("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*\\.\\w{2,4}$");
 //        Pattern patDoc=Pattern.compile("^\\d{4}[\\-]\\[a-zA-Z]{3}[\\-]\\d{4}[\\-]\\[a-zA-Z]{3}[\\-]\\d\\[a-zA-Z]\\d\\[a-zA-Z]$");
-//        Document num1=new Document("Text",patPhoneNum.matcher((CharSequence) file1),patMail.matcher((CharSequence) file1),patDoc.matcher((CharSequence) file1));
+        //Document num1 = new Document(file1.getName(), );
 //        for (int i = 0; i < filesToProcess; i++) {
-//            Matcher matcher=pattern.matcher(files[i]);
-
-        }
 
 
     }
+
+
+}
 
 
 
